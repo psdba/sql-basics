@@ -1,0 +1,358 @@
+sql hands:
+
+char: it has fixed len 255
+
+ 
+
+varchar: 65533 
+
+Binary: it is equavalent to char but it stores binary bytes strings.
+
+ 
+
+varBinary: equavalent to varchar.
+
+ 
+
+tinyBlob: (Binary Large Objects) 
+    max length is 255 byte.
+
+ 
+
+tinyText: It holds string maximum 255 chars.
+
+ 
+
+Text: It holds 65535 bytes.
+
+ 
+
+Neumeric data type:
+1. Bit: it holds 64 bits.
+2. tinyInt: it holds 255 bits.
+3. boolean: 0 is false, 1 is true
+4. int: it stores 255 bits.
+    integer = int.
+5.BigInt: a large integer which stores same range from -922.. to +18446
+
+ 
+
+Date and Time:
+1. Date: it's used for adding date and format is 'YYYY-MM-DD'
+2. DateTime: it stores dates with combination with Time.
+3. TimeStamp: 
+4. Time: it's stores time and format is 'HH-MM-SS'
+5. Year: it stores years in 4 digit format.
+
+ 
+
+Operators in MYSQL:
+Arithmetic operators:
+    1. Add => +
+    2. Subtract (=> -)
+    3. Multiply => *
+    4. Divide => /
+    5. Module => %
+
+ 
+
+Comparison Operators:
+    1. Equals to (=)
+    2. Greater than (>)
+    3. Less than(<)
+    4. Greater than or equals to (>=)
+    5. Less than or equals to (<=)
+    6. Not equals to (!=)
+
+ 
+
+Logical Operators:
+    1. All 
+    2. And
+    3. Any
+    4. Between
+    5. Exists
+    6. In
+    7. Like
+    8. not
+    9. or
+    10. Some
+
+ 
+
+
+-- Inner Join
+select emp_id, Emp_name, address, e.department_id, department_name from Employee e
+inner join department d on d.department_id = e.department_id;
+
+
+
+create table department(
+    department_id int not null primary key,
+    department_name varchar(30),
+    block_no int 
+);
+
+ 
+
+
+create table Employee(
+    emp_id int not null primary key,
+    emp_name varchar(30),
+    address varchar(30),
+    age int,
+    department_id int,
+    foreign key(department_id) references department(department_id)
+);
+
+
+
+
+-- Concat
+select concat(column_name, "anyString in double quote") as new_column_name;
+
+ 
+
+describe Employee;
+
+ 
+
+Select concat(emp_id, emp_name) as UserId from Employee;
+
+ 
+
+Select concat(emp_id,emp_name, " My user_id is") as UserId from Employee;
+
+ 
+
+-- character length => counts the length of the char
+select char_length("My name is Arya");
+
+ 
+
+-- Left function for String
+select left("My name is Arya", 10);
+
+ 
+
+-- left function for colums
+select left(emp_name, 2) from Employee;
+
+ 
+
+-- Lower function for String
+select Lower("My name is Arya");
+
+ 
+
+-- lower function for colums
+select lower(emp_name) from Employee;
+
+ 
+
+-- Upper function for String
+select Upper("My name is Arya");
+
+ 
+
+-- Upper function for colums
+select Upper(emp_name) as UpperCase from Employee;
+
+ 
+
+-- LTrim function for String
+select Ltrim("        My name is Arya         ");
+
+ 
+
+-- Reverse Function
+select Reverse("My name is Arya");
+
+ 
+
+-- SubString Function: it's used to substract the value from the given position
+select substring("My name is Arya",5,4);
+-- For table
+select substr(emp_name,2, 4) from Employee;
+select MID(emp_name,2, 4) from Employee;
+
+ 
+
+-- U_Case: same as uppercase
+
+ 
+
+-- Neumeric Function
+-- 1. AVG()
+select Avg(age) from Employee;
+-- 2. MAx()
+select Max(age) from Employee;
+-- 3. MIN()
+select MIN(age) from Employee;
+-- 4. MOD()
+select MOD(age, 3) from Employee;
+select mod(84645, 7);
+
+ 
+
+-- 5. SUM()
+select SUM(age) from Employee;
+
+ 
+
+select * from Employee;
+ALTER table Employee
+Add column salary double;
+-- 6. Date function
+select concat(emp_name, " is from ",address) fromEmployee;
+
+ 
+
+-- Add Date Function: We can add Year, Month, Week, Date, Hour, Second, micro second
+-- total 4 required parameters
+-- Date, Days, Values and addUnit
+
+ 
+
+-- Add date(date, inerval, value, addUnit) 
+select Doj from Employee;
+select adddate("2023-01-05", interval 1 month);
+select adddate("2023-01-05", interval 1 day);
+select adddate("2023-01-05", interval -2 week);
+
+ 
+
+-- How to select current date function?
+select current_date();
+
+
+
+
+select * from EMPLOYEE;
+select * from EMPLOYEE
+group by department_id;
+
+ 
+
+select emp_id, emp_name, department_id, sum(salary) as dept_salary from EMPLoyee
+group by department_id;
+
+ 
+
+-- HAVING clause...
+select emp_id, emp_name, department_id, sum(salary) as dept_salary from EMPLoyee
+group by department_id
+having sum(salary)<50000;
+
+
+
+create view Arya_View as select emp_id, emp_name from Employee;
+
+ 
+
+select * from Arya_View;
+
+ 
+
+-- views are virtual table often related to Security and performace.
+-- We can also add other sql statements with views.
+
+ 
+
+-- Index 
+-- create index index_name on table_name coulmn_name;
+-- index are used in the database to speed up the performance.
+create index ind1 on Employee (emp_name);
+select * from ind1; -- we 
+-- SYNTAX: alter table table_name drop index index_name;
+alter table Employee drop index ind1;
+
+ 
+
+-- insert command with select statement.
+-- insert into table1 select * from table 2 where condition; 
+-- insert into table1 (column1, column2) select column1, column2 from table 2; 
+use classicmodels;
+show tables;
+select * from employees;
+select * from TABLE1;
+truncate table table1;
+-- create table
+create table TABLE1 as select * from employees;
+-- insert into empty schemas.
+insert into TABLE1 select * from employees;
+
+
+
+
+
+use classicmodels;
+show tables;
+describe customers;
+select * from customers;
+select * from employees;
+create view V as (
+    select c.customerName, c.phone, e. firstName, e.jobTitle from employees e
+    inner join customers c on e.employeeNumber = c.salesRepEmployeeNumber
+);
+
+ 
+
+select * from V;
+
+ 
+
+create view VIEW2 as (
+    select c.customerName, c.phone, e. firstName, e.jobTitle from employees e
+    inner join customers c on e.employeeNumber = c.salesRepEmployeeNumber
+    where officeCode = 1
+);
+
+ 
+
+select * from view2;
+
+ 
+
+use sudiptoDB;
+select * from employee;
+
+ 
+
+update employee 
+set age = 92 
+where emp_id = 2;
+
+ 
+
+-- rollback 
+rollback;
+
+ 
+
+-- in work bench if autocommit is enabled we have to write 'start transaction'
+start transaction;
+
+ 
+
+show engines;
+
+ 
+
+-- creating savepoint
+savepoint sudipto1;
+rollback to sudipto1;
+
+ 
+
+-- commit command makes the change permanant. no longer in transaction.
+commit;
+
+
+
+select * from MYSQL.USER;
+
+describe MYSQL.USER;
+
+SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('MYSQL.USER') ;
+SHOW GRANTS FOR root @'localhost';
