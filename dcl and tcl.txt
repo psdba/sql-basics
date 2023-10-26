@@ -1,0 +1,10 @@
+create new user
+-----------------
+create user 'testuser'@'localhost' identified by password 'abcd';
+grant privillage
+--------------
+grant select, insert, update on databasename.tablename to 'username'@'localhost';
+
+drop user 'username'@'localhost';
+
+select * from MYSQL.USER;
